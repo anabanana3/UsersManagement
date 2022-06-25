@@ -34,6 +34,15 @@ public class UserAPI {
 		return user.get();
 	}
 	
+	@GetMapping("/name/{name}")
+	public User userByName(@PathVariable("name") String name) {
+		if(name.contains("_")) name = name.replace("_", " ");
+		Optional<User> user = userRepo.findByName(name);
+		if(user.isEmpty()) return null;
+		return user.get();
+	}
+	
+	
 	@GetMapping("/email/{email}")
 	public User userByEmail(@PathVariable("email") String email) {
 		Optional<User> user = userRepo.findByEmail(email);
